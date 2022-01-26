@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="ApDownloader.UI.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             Height="500" Width="720">
+    <StackPanel HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal">
+            <Grid Width="400">
+                <StackPanel>
+                    <TextBlock Text="Enter your login Information"
+                               Foreground="White"
+                               FontSize="28"
+                               Margin="20, 10, 10, 40" />
+                    <StackPanel FocusManager.FocusedElement="{Binding ElementName=FocusedBox}">
+                        <TextBox Style="{StaticResource LoginTextBox}"
+                                 Name="EmailBox" />
+                        <TextBlock Text="Email Address"
+                                   HorizontalAlignment="Center"
+                                   Foreground="White"
+                                   FontSize="16" />
+                        <PasswordBox Style="{StaticResource PasswordBoxTheme}"
+                                     Name="PasswordBoxName"
+                                     KeyDown="OnEnterKeyHandler"
+                                     Margin="0,25,0,0" />
+                        <TextBlock Text="Password"
+                                   HorizontalAlignment="Center"
+                                   Foreground="White"
+                                   FontSize="16" />
+                    </StackPanel>
+                    <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0"
+                                Name="LoginButton"
+                                Content="Log In"
+                                Margin="0,0,10,0"
+                                Click="Login"
+                                KeyDown="OnEnterKeyHandler"
+                                Style="{DynamicResource LoginButton}" />
+                        <Button Grid.Column="1"
+                                Content="Log Out"
+                                Name="LogoutButton"
+                                Margin="10,0,0,0"
+                                IsEnabled="False"
+                                Click="Logout"
+                                Style="{DynamicResource LoginButton}" />
+                    </Grid>
+                    <TextBlock Name="LoginResult"
+                               FontSize="30"
+                               HorizontalAlignment="Center"
+                               Margin="0 40 0 0"
+                               Foreground="White" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
