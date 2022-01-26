@@ -7,10 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Domain.fs"/>
-        <Compile Include="DataAccess.fs"/>
-        <Compile Include="HttpAccess.fs"/>
-        <Compile Include="Program.fs"/>
+        <Compile Include="Domain.fs" />
+        <Compile Include="DataAccess.fs" />
+        <Compile Include="HttpAccess.fs" />
+        <Compile Include="Program.fs" />
         <Content Include="ProductsDb.db">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
@@ -20,14 +20,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Elmish" Version="3.1.0"/>
-        <PackageReference Include="Elmish.WPF" Version="3.5.8"/>
-        <PackageReference Include="FSharp.Data.Dapper" Version="2.0.0"/>
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.1"/>
+        <PackageReference Include="Elmish" Version="3.1.0" />
+        <PackageReference Include="Elmish.WPF" Version="3.5.8" />
+        <PackageReference Include="FSharp.Data" Version="4.2.7" />
+        <PackageReference Include="FSharp.Data.Dapper" Version="2.0.0" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CsharpHelpers\CsharpHelpers.csproj"/>
+        <ProjectReference Include="..\CsharpHelpers\CsharpHelpers.csproj" />
     </ItemGroup>
 
 </Project>

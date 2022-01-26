@@ -1,21 +1,30 @@
 module HttpAccess
 
 open System.Net
+open FSharp.Data
 
-let printWebsiteLogin =
+[<Literal>]
+let domain = "https://www.armstrongpowerhouse.com"
+
+[<Literal>]
+let loginUrl =
+    "https://www.armstrongpowerhouse.com/index.php?route=account/login"
+
+let login username password =
     let cookieContainer = CookieContainer()
 
-    let test =
+    let _ =
         Http.Request(
-            @"https://www.armstrongpowerhouse.com/index.php?route=account/login",
+            loginUrl,
             body =
-                FormValues [ "email", "USER_EMAIL"
-                             "password", "USER_PASSWORD" ]
+                FormValues [ "email", $"{username}"
+                             "password", $"{password}" ],
+            cookieContainer = cookieContainer
         )
 
-    test.Cookies
-    |> Map.iter (fun k v -> cookieContainer.Add(Cookie(k, v, "/", "www.armstrongpowerhouse.com")))
+    cookieContainer
 
+(*
     let downloads =
         Http.RequestString(
             @"https://www.armstrongpowerhouse.com/index.php?route=account/download",
@@ -23,3 +32,4 @@ let printWebsiteLogin =
         )
 
     printfn "%s" downloads
+*)
