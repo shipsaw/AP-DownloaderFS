@@ -15,14 +15,14 @@
                                Margin="20, 10, 10, 40" />
                     <StackPanel FocusManager.FocusedElement="{Binding ElementName=FocusedBox}">
                         <TextBox Style="{StaticResource LoginTextBox}"
+                                 Text="{Binding EmailChange}"
                                  Name="EmailBox" />
                         <TextBlock Text="Email Address"
                                    HorizontalAlignment="Center"
                                    Foreground="White"
                                    FontSize="16" />
                         <PasswordBox Style="{StaticResource PasswordBoxTheme}"
-                                     Name="PasswordBoxName"
-                                     KeyDown="OnEnterKeyHandler"
+                                     Name="PasswordBox"
                                      Margin="0,25,0,0" />
                         <TextBlock Text="Password"
                                    HorizontalAlignment="Center"
@@ -38,8 +38,8 @@
                                 Name="LoginButton"
                                 Content="Log In"
                                 Margin="0,0,10,0"
-                                Click="Login"
-                                KeyDown="OnEnterKeyHandler"
+                                Command="{Binding Login}"
+                                CommandParameter="{Binding ElementName=PasswordBox }"
                                 Style="{DynamicResource LoginButton}" />
                         <Button Grid.Column="1"
                                 Content="Log Out"

@@ -1,10 +1,10 @@
 ﻿module Project
 
+open System.Net
 open System.Windows
 open Elmish.WPF
 open Elmish
 open Domain
-open System.Net.Http
 open DataAccess
 
 /// This is the main data model for our application
@@ -15,13 +15,15 @@ type Model =
       DownloadedProducts: Product seq
       DiskProducts: Product seq
       ListItemProducts: ProductListItem seq
-      Client: HttpClient option
+      ClientCookies: CookieContainer option
+      UserEmail: string
       DlConfig: DownloadConfig }
 
 type MessageType =
     | Exit
-    | Login of HttpClient option
+    | Login of obj
     | PrepareDownloadView
+    | EmailChange of string
 /// Commands
 let ExitCommand (dispatch: MessageType -> unit) : unit = Application.Current.Shutdown()
 /// This is used to define the initial state of our application
@@ -32,7 +34,8 @@ let init () =
       DownloadedProducts = Seq.empty
       DiskProducts = Seq.empty
       ListItemProducts = Seq.empty
-      Client = None
+      ClientCookies = None
+      UserEmail = ""
       DlConfig =
           { GetExtraStock = true
             GetBrandingPatch = true
@@ -53,7 +56,8 @@ let ProductToListItem (product: Product) =
 let update (msg: MessageType) (model: Model) =
     match msg with
     | Exit -> model, Cmd.ofSub ExitCommand
-    | Login newClient -> { model with Client = newClient }, Cmd.none
+    | Login userPw -> { model with ClientCookies = HttpAccess.AttemptLogin(model.UserEmail, userPw) }, Cmd.none
+    | EmailChange email -> { model with UserEmail = email }, Cmd.none
     | PrepareDownloadView -> model, Cmd.none
 
 /// Elmish uses this to provide the data context for your view based on a model
@@ -67,6 +71,9 @@ let bindings () : Binding<Model, MessageType> list =
       "Exit" |> Binding.cmd Exit
       "DownloadViewCommand"
       |> Binding.cmd PrepareDownloadView
+      "EmailChange"
+      |> Binding.twoWay ((fun m -> m.UserEmail), (string >> EmailChange))
+      "Login" |> Binding.cmdParam (fun pw -> Login pw)
       //"OptionsViewCommand" |> Binding.cmd OptionsView ]
       ]
 
